@@ -19,6 +19,8 @@ import { BookshelfComponent } from './bookshelf/bookshelf.component';
 import { NewCategoryComponent } from './bookshelf/new-category/new-category.component';
 import { NewBookComponent } from './bookshelf/new-book/new-book.component';
 
+
+
 // const ngxUiLoaderConfig: NgxUiLoaderConfig = {
 //   bgsColor: 'red',
 //   bgsPosition: POSITION.bottomCenter,
