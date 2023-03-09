@@ -1,0 +1,46 @@
+<div class="animated pulse">
+  <div class="modal-header-wrap">
+    <div (click)="close_onClick()" class="modal-close-ico" aria-hidden="true">X</div>
+  </div>
+  <div class="modal-baseWrap">
+    <br>
+    <form [formGroup]="bookForm">
+      <div class="input-group">
+        <div class="input-group-wrap">
+          <mat-form-field appearance="outline">
+            <mat-label>Category</mat-label>
+            <input matInput placeholder="Category" [disabled]="true" formControlName="categoryName">
+          </mat-form-field>
+          <!-- <mat-form-field>
+            <input disabled matInput type="text" placeholder="Category" formControlName="categoryName">
+          </mat-form-field> -->
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-group-wrap">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Book Title" formControlName="bookName">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-group-wrap">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Author" formControlName="author">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-slide-toggle formControlName="isFavourite" >
+        Favourite
+      </mat-slide-toggle>
+    </form>
+
+    <div *ngIf="isNew" class="btn-wrap">
+      <div (click)="onSaveBook()" class="blue-btn">Submit</div>
+    </div>
+    <div *ngIf="!isNew" class="btn-wrap">
+      <div (click)="onUpdateBook()" class="blue-btn">Update</div>
+    </div>
+  </div>
+</div>

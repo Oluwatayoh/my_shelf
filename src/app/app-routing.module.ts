@@ -1,10 +1,18 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
+import { AppComponent } from './app.component';
+import { BookshelfComponent } from './bookshelf/bookshelf.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+    {
+        path: '', component: AppComponent,
+        children: [
+            { path: '', redirectTo: 'bookshelf', pathMatch: 'full' },
+            { path: 'bookshelf', component: BookshelfComponent },           
+        ]
+    }
+];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
+
+export const Routing = RouterModule.forRoot(routes, { useHash: true });
+

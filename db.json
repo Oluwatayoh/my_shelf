@@ -1,0 +1,34 @@
+{
+  "categories": [
+    {
+      "categoryName": "Sport Books",
+      "id": 1,
+      "books": [
+        {
+          "bookId": "86s86D6Y88",
+          "bookName": "Messi",
+          "author": "G.O.A.T",
+          "isFavourite": true
+        },
+        {
+          "bookId": "HD8AAH68sY",
+          "bookName": "CR7",
+          "author": "Juventus",
+          "isFavourite": true
+        }
+      ]
+    },
+    {
+      "categoryName": "Religious Books",
+      "books": [
+        {
+          "bookId": "CHdass86Y6",
+          "bookName": "Prayer is the key",
+          "author": "JJ. Harry",
+          "isFavourite": false
+        }
+      ],
+      "id": 2
+    }
+  ]
+}

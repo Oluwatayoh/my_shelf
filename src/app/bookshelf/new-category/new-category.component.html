@@ -1,0 +1,21 @@
+<div class="animated pulse">
+  <div class="modal-header-wrap">
+    <div (click)="close_onClick()" class="modal-close-ico" aria-hidden="true">X</div>
+  </div>
+  <div class="modal-baseWrap">
+    <br>
+    <form [formGroup]="categoryForm">
+      <div class="input-group">
+        <div class="input-group-wrap">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Category Name" formControlName="categoryName">
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+
+    <div class="btn-wrap">
+      <div  (click)="selectedCategory && !isNew ? onUpdateCategory() : onSaveCategory()" class="blue-btn">Submit</div>
+    </div>
+  </div>
+</div>

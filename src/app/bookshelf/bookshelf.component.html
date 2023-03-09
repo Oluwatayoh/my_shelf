@@ -1,0 +1,111 @@
+<div class="wrap-con">
+  <div class="topBarWrap">
+    <div class="container">
+      <div class="top-wrap">
+        <div class="srch">
+          <i class="fas fa-search"></i>
+          <input placeholder="Search">
+        </div>
+        <div class="col-sm-4 pageTitle">Book Shelf</div>
+        <div class="prof">
+          <div class="prof-notif">
+            <i matBadge="1" matBadgePosition="above after" class="far fa-bell mat-icon"></i>
+          </div>
+
+
+          <div class="prof-detail ">
+            <div class="user-avatar" data-toggle="tooltip" data-placement="bottom" title="Profile">
+              <img src="assets/images/passport.jpg" />
+            </div>
+            <div class="user-detail col-sm-10 ">
+              <div class="inner-UD">
+                <a>Ojo Oluwatayo</a>
+                <div class="grd">
+                  <div>
+                    <small data-toggle="tooltip" data-placement="bottom">Shelf Owner</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="card">
+      <div class="shelf_layout">
+        <div class="category">
+          <div *ngIf="categoryListEmpty" class="emp">
+            <i class="fa fa-exclamation-circle"></i>
+            <a (click)="onShowNewCategory(null, 0, true)">No Category<br>
+              Add New</a>
+          </div>
+          <div *ngIf="categoryListShow">
+            <div class="cat-wrap">
+              <h6>Categories</h6>
+              <i (click)="onShowNewCategory(null, 0, true)" class="fa fa-plus-circle"></i>
+            </div>
+
+            <div *ngFor="let category of categories; let i = index">
+              <div class="categoryItem" [ngClass]="{'active': selectedCategory === category}">
+                <a (click)="onSelectedCategory(category)">{{category?.categoryName}}</a>
+                <div class="action">
+                  <i (click)="onShowNewCategory(category, i, false)" class="fa fa-edit"></i>
+                  <i (click)="onDeleteCategory(category.id)" class="fa fa-trash"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <mat-divider class="divider" [vertical]="true"></mat-divider>
+        <!-- <div class="divider"></div> -->
+        <div *ngIf="bookshow" class="books">
+          <div class="add-btn-wrap">
+            <h3>{{selectedCategory.categoryName}}</h3>
+            <div (click)="onShowAddNewBook(null, true)" class="primary-btn">
+              <i class="fa fa-plus"></i>
+              Add Book
+            </div>
+          </div>
+
+          <div class="bookList">
+            <mat-card class="booksCard col-sm-5" *ngFor="let book of books; let i = index">
+              <div class="crd-body">
+                <div class="title">
+                  <h6>{{book.bookName}}</h6>
+                  <small>{{book.author}}</small>
+                </div>
+                <div class="action">
+                  <i class="fa fa-star" [class.favouriteColor]="book.isFavourite"></i>
+                  <i class="fa fa-edit" (click)="onShowAddNewBook(book, false)"></i>
+                  <i class="fa fa-trash" (click)="onDeleteBook(book.bookId)"></i>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+
+          <!-- <div class="btn-wrap">
+            <div class="blue-btn">Load More</div>
+          </div> -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="newCategory" class="modal-overlay">
+  <app-new-category [isNew]="isNew" [selectedCategory]="selectedCategory" (closeModal)="close_onClick($event)"
+    id="form-modal" class="form-modal center-center">
+  </app-new-category>
+</div>
+
+<div *ngIf="newBook" class="modal-overlay">
+  <app-new-book [selectedCategory]="selectedCategory" [isNew]="isNewBook" [selectedBook]="selectedBook" (closeModal)="close_onClick($event)" id="form-modal"
+    class="form-modal center-center">
+  </app-new-book>
+</div>
+<!-- TopBar Ends -->
