@@ -128,7 +128,7 @@ export class NewCategoryComponent implements OnInit {
   }
 
   onSaveCategory(): void {
-    this.utilService.showLoading;
+    this.utilService.showLoading();
     if (this.file != null) {
       this.uploadFile();
     } else {
@@ -141,7 +141,7 @@ export class NewCategoryComponent implements OnInit {
   }
 
   public onUpdateCategory() {
-    this.utilService.showLoading;
+    this.utilService.showLoading();
     if (this.file != null) {
       this.uploadFile();
     } else {

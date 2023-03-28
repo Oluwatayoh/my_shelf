@@ -4,12 +4,11 @@
       <div class="prof-detail ">
         <div class="user-avatar">
           <i *ngIf="user?.photoURL == null" class="fa-solid fa-user"></i>
-          <img *ngIf="user?.photoURL !== null" src="assets/images/passport.jpg" />
+          <img *ngIf="user?.photoURL !== null" [alt]="user?.displayName" [src]="user?.photoURL" />
         </div>
         <div class="user-detail col-sm-10 ">
           <div class="inner-UD">
-            <span style="cursor: pointer;" *ngIf="user?.displayName == null" (click)="showupdateProfile()">Update your
-              profile</span>
+         
             <a *ngIf="user?.displayName !== null">{{user?.displayName === "" ? empty : (appStore.userState$ |
               async)?.displayName}}</a>
             <div class="grd">
@@ -17,6 +16,8 @@
                 <small>{{user?.email}} | Owner</small>
               </div>
             </div>
+            <span style="cursor: pointer; font-size: small;" (click)="showupdateProfile()">Update your
+              profile</span>
           </div>
         </div>
       </div>

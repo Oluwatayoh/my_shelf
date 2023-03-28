@@ -12,7 +12,7 @@ import { UtilityService } from './util.service';
 import { AppStore } from '../state_manahgement/appstore.service';
 import { concatMap, from, Observable, of } from 'rxjs';
 import { updateDoc } from 'firebase/firestore';
-import { getAuth, updateProfile } from 'firebase/auth';
+import { getAuth, updateCurrentUser, updateEmail, updatePhoneNumber, updateProfile } from 'firebase/auth';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -29,8 +29,6 @@ export class AuthService {
     public utilService: UtilityService,
     public appStore: AppStore
   ) {
-    /* Saving user data in localstorage when
-    logged in and setting up null when logged out */
     this.getUser();
   }
 
@@ -39,15 +37,17 @@ export class AuthService {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.SetUserData(result.user);
-        this.afAuth.authState.subscribe((user) => {
-          if (user) {
-            this.userData = user;
-            this.appStore.setUserState(user);
-            this.router.navigate(['bookshelf']);
+        this.getUser();
+                    this.router.navigate(['bookshelf']);
             this.utilService.hideLoading();
-          }
-        });
+        // this.afAuth.authState.subscribe((user) => {
+        //   if (user) {
+        //     this.userData = user;
+        //     this.appStore.setUserState(user);
+        //     this.router.navigate(['bookshelf']);
+        //     this.utilService.hideLoading();
+        //   }
+        // });
       })
       .catch((error) => {
         this.utilService.hideLoading();
@@ -114,10 +114,14 @@ export class AuthService {
   getUser() {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
-        this.appStore.setUserState(user);
-        this.userData = user;
+      this.afs.collection('users').doc(user.uid).valueChanges().subscribe((e)=>{
+        // this.SetUserData(e);
+        this.appStore.setUserState(e);
+        this.userData = e;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
+      });
+        
       } else {
         this.appStore.setUserState(initialState);
         localStorage.setItem('user', 'null');
@@ -134,11 +138,15 @@ export class AuthService {
       phone: user.phone,
       email: user.email,
     });
+
+    updateEmail(this.userData, user.email);
+    // updateCurrentUser(this.afAuth.authState, user);
     updateProfile(this.userData, {
       displayName: user.displayName.toString(),
       photoURL: 'https://example.com/jane-q-user/profile.jpg',
     })
       .then(() => {
+        this.getUser();
         Swal.fire({
           icon: 'success',
           title: 'Updated Successfully',

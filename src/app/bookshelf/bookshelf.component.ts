@@ -112,6 +112,7 @@ export class BookshelfComponent implements OnInit {
       .then((result) => {
         if (result.value) {
           this._shelfService.delete(value);
+          this.bookshow=false;
           this.getCategory();
           swal.fire('Deleted!', 'Your file has been deleted.', 'success');
         }

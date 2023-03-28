@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './shared-module/material-module';
+//import { MaterialModule } from './shared-module/material-module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routing } from './app-routing.module';
@@ -29,6 +29,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { ImageUploadService } from './services/image_upload.service';
 import { AppStore } from './state_manahgement/appstore.service';
 import { getStorage, provideStorage } from '@angular/fire/storage';
+import { MaterialModule } from './shared-module/material-module';
 
 @NgModule({
   declarations: [

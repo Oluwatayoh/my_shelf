@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "deploy": "gh-pages --dist 'dist' --branch 'release'",
     "json:server": "json-server --watch db.json",
-    "test": "ng test"
+    "test": "ng test",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
