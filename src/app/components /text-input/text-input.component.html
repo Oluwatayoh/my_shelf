@@ -1,0 +1,10 @@
+<div class="wrap">
+  <p *ngIf="label">{{label}}</p>
+  <div class="txt-wrap">
+    <i *ngIf="prefix" class="prefix" [class]="prefixVarient"></i>
+    <div style="width:100%">
+      <input [type]="type" autocomplete="off" [(ngModel)]="value" [name]="name!" [placeholder]="placeholder">
+    </div>
+  </div>
+
+</div>

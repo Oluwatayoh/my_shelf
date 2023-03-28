@@ -1,0 +1,22 @@
+<div class="bg">
+  <div class="login-wrap">
+    <p class="sub">Welcome to</p>
+    <div class="space"></div>
+    <h1 class="title">My Book Shelf!</h1>
+    <div class="space2"></div>
+    <div class="login-form-wrap">
+      <app-text-input [(ngModel)]="userCred.email" [prefix]="true" [prefixVarient]="'fa-solid fa-circle-user'" [type]="'email'"
+        [placeholder]="'Username'"></app-text-input>
+      <div class="space"></div>
+      <app-text-input [(ngModel)]="userCred.password"  [prefix]="true" [prefixVarient]="'fa-solid fa-lock'" [type]="'password'"
+        [placeholder]="'Password'"></app-text-input>
+        <div class="space"></div>
+        <button (click)="onSignIn()" class="signInBTN">Login</button>
+        <div class="space"></div>
+        <a (click)="onSignUp()">SignUp</a>
+        <!-- <button class="signInSocia">
+          <img src="assets/images/google.png" alt="google">
+        Google SignIn</button> -->
+    </div>
+  </div>
+</div>

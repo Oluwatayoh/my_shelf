@@ -15,6 +15,10 @@
   }
 }
 
+.title {
+  font-size: 3rem;
+}
+
 .category {
   min-width: 350px;
   padding: 20px;
@@ -34,13 +38,22 @@
   display: flex;
 }
 
+.fa-right-from-bracket {
+  color: #004983;
+}
+
 .cat-wrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  font-size: 20px;
+  color: #004983;
+  h6 {
+    font-size: 20px;
+  }
   i:hover {
-    font-size: 18px;
+    font-size: 20px;
     color: #000000;
   }
 }
@@ -53,7 +66,7 @@
   padding: 15px 15px 15px 0px;
   a,
   i {
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 600;
     margin: 2px;
   }
@@ -68,8 +81,6 @@
   border-top: 0px solid;
   cursor: pointer;
   box-shadow: 0 0px 5px 2px rgba(58, 58, 58, 0.09);
-  margin: 0 5px 5px 0px;
-  border-radius:0 5px 5px 0px;
   i,
   a {
     color: #ffffff;
@@ -87,8 +98,7 @@
   margin-bottom: 20px;
 }
 
-
-.favouriteColor{
+.favouriteColor {
   color: yellow;
 }
 
@@ -97,34 +107,36 @@
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-  max-height: 370px;
   overflow: auto;
-  .booksCard {
-    border-left: 10px solid #004983;
-    border-radius: 0px 10px 10px 0px;
-    margin: 20px;
-    .crd-body {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+  justify-content: space-evenly;
+}
 
-      .title {
-        color: #000000;
-        h6 {
-          font-weight: 700 !important;
-          font-size: 1.4rem;
-          margin-bottom: 0rem !important;
-        }
-        small {
-          font-weight: 600 !important;
-        }
+.booksCard {
+  border-left: 10px solid #004983;
+  border-radius: 0px 10px 10px 0px;
+  margin-bottom: 2rem;
+  .crd-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+      color: #000000;
+      h6 {
+        font-weight: 700 !important;
+        font-size: 1rem;
+        margin-bottom: 0rem !important;
       }
-      .action {
-        display: grid;
-        text-align: center;
-        i {
-          margin: 5px;
-        }
+      small {
+        font-size: .8rem;
+        font-weight: 600 !important;
+      }
+    }
+    .action {
+      display: grid;
+      text-align: center;
+      i {
+        margin: 5px;
       }
     }
   }
@@ -151,4 +163,8 @@
     width: 90%;
     margin-bottom: 20px;
   }
+}
+
+.fa-solid {
+  cursor: pointer !important;
 }

@@ -1,0 +1,32 @@
+.bg{
+  height: 100vh;
+  background-color:rgba(235, 235, 235, 0.734);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sub, .title{
+  color: #00488A;
+}
+
+.sub{
+  font-weight: bold;
+}
+.title{
+  font-size: 3rem;
+}
+
+
+.login-wrap
+{
+ min-width: 30rem;
+}
+
+
+@media only screen and (max-width: 900px) {
+  .login-wrap
+  {
+   min-width: 15rem;
+  }
+}

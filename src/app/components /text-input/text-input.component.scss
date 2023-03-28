@@ -1,0 +1,46 @@
+.wrap {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 1rem;
+}
+p {
+  color: #00478aa4;
+}
+input {
+  font-size: 16px;
+  outline: none !important;
+  border: none !important;
+  width: 100%;
+}
+i {
+  font-size: 30px;
+  font-family: "Font Awesome 6 Free" !important;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #00478aa4;
+  font-size: 16px;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #00478aa4;
+  font-size: 16px;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #00478aa4;
+  font-size: 16px;
+}
+
+.txt-wrap {
+  display: flex;
+  align-items: center;
+  .prefix{
+    padding: 10px 15px;
+    color: #00488A;
+  }
+}

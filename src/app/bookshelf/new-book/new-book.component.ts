@@ -56,7 +56,6 @@ export class NewBookComponent implements OnInit {
         author: this.selectedBook.author,
         isFavourite: this.selectedBook.isFavourite,
       });
-      // console.log(this.selectedCategory);
     } else {
       this.bookForm.patchValue({
         categoryName: this.selectedCategory.categoryName,
@@ -77,30 +76,29 @@ export class NewBookComponent implements OnInit {
       isFavourite: this.bookForm.controls['isFavourite'].value,
     };
 
-    this.subscription = this._shelfService
-      .updateBook(this.selectedBook.bookId, this.selectedCategory.id, bookModel)
-      .subscribe(
-        (payload) => {
-          swal.fire({
-            icon: 'success',
-            title: 'Update Saved Successfully',
-            showCancelButton: false,
-            timer: 1500,
-          });
-          console.log(payload);
-          this.updatedCategory.emit(payload);
-          this.close_onClick();
-        },
-        (error) => {
-          swal.fire({
-            icon: 'warning',
-            title: 'Error Occur while updating record',
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          this.close_onClick();
-        }
-      );
+    // this.subscription = this._shelfService
+    //   .updateBook(this.selectedBook.bookId, this.selectedCategory.id, bookModel)
+    //   .subscribe(
+    //     (payload) => {
+    //       swal.fire({
+    //         icon: 'success',
+    //         title: 'Update Saved Successfully',
+    //         showCancelButton: false,
+    //         timer: 1500,
+    //       });
+    //       this.updatedCategory.emit(payload);
+    //       this.close_onClick();
+    //     },
+    //     (error) => {
+    //       swal.fire({
+    //         icon: 'warning',
+    //         title: 'Error Occur while updating record',
+    //         showConfirmButton: false,
+    //         timer: 1500,
+    //       });
+    //       this.close_onClick();
+    //     }
+    //   );
   }
 
   onSaveBook() {
@@ -110,31 +108,30 @@ export class NewBookComponent implements OnInit {
       author: this.bookForm.controls['author'].value,
       isFavourite: this.bookForm.controls['isFavourite'].value,
     };
-    this.selectedCategory.books.push(bookModel);
-    this._shelfService
-      .updateCategory(this.selectedCategory.id, this.selectedCategory)
-      .subscribe(
-        (payload) => {
-          swal.fire({
-            icon: 'success',
-            title: 'Book Saved Successfully',
-            showCancelButton: false,
-            timer: 1500,
-          });
-          console.log(payload);
-          this.updatedCategory.emit(payload);
-          this.close_onClick();
-        },
-        (error) => {
-          swal.fire({
-            icon: 'warning',
-            title: 'Error Occur while registering',
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          this.close_onClick();
-        }
-      );
+    // this.selectedCategory.books!.push(bookModel);
+    // this._shelfService
+    //   .updateCategory(this.selectedCategory.id, this.selectedCategory)
+    //   .subscribe(
+    //     (payload) => {
+    //       swal.fire({
+    //         icon: 'success',
+    //         title: 'Book Saved Successfully',
+    //         showCancelButton: false,
+    //         timer: 1500,
+    //       });
+    //       this.updatedCategory.emit(payload);
+    //       this.close_onClick();
+    //     },
+    //     (error) => {
+    //       swal.fire({
+    //         icon: 'warning',
+    //         title: 'Error Occur while registering',
+    //         showConfirmButton: false,
+    //         timer: 1500,
+    //       });
+    //       this.close_onClick();
+    //     }
+    //   );
   }
 
   close_onClick() {

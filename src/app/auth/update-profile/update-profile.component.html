@@ -1,0 +1,24 @@
+<div class="animated pulse" *ngIf="appStore.userState$ | async as user">
+  <div class="modal-header-wrap">
+    <div class="title">Update Profile</div>
+    <div (click)="close_onClick()" class="modal-close-ico" aria-hidden="true">X</div>
+  </div>
+  <div class="modal-baseWrap">
+    <br>
+    <form action="">
+      <app-text-input [(ngModel)]="userData.displayName" [prefix]="false" [type]="'text'" [name]="'displayName'"
+        [placeholder]="'Fullname'"></app-text-input>
+      <div class="space"></div>
+      <app-text-input [(ngModel)]="userData.email" [prefix]="false" [type]="'email'" [name]="'email'"
+        [placeholder]="'Email'"></app-text-input>
+      <div class="space"></div>
+      <app-text-input [(ngModel)]="userData.phone" [prefix]="false" [type]="'number'" [name]="'phone'"
+        [placeholder]="'Phone'"></app-text-input>
+      <div class="space"></div>
+    </form>
+
+    <div class="btn-wrap">
+      <div class="blue-btn" (click)="saveProfile()">Save</div>
+    </div>
+  </div>
+</div>

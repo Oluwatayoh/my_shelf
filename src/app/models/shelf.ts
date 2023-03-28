@@ -1,17 +1,32 @@
 import { IBooks } from './books';
 
-export class IShelf {
-    public id: number;
-    public categoryName: string;
-    public books: IBooks[];
+export interface IShelf {
+  uid?: string;
+  categoryName: string;
+  author?: string;
+  title?: string;
+  dateadded?: Date;
+  description?: string;
+  favourite?: boolean;
+  imageUrl?: string;
 
-    constructor(
-        _id: number,
-        _categoryName: string,
-        _books: IBooks[],
-    ){
-        this.id = _id;
-        this.categoryName = _categoryName;
-        this.books = _books;
-    }
+  // constructor(
+  //     _categoryName: string,
+  //     _books: IBooks[],
+  // ){
+
+  //     this.categoryName = _categoryName;
+  //     this.books = _books;
+  // }
 }
+
+export const initialShelf: IShelf = {
+  uid: '',
+  categoryName: '',
+  author: '',
+  title: '',
+  dateadded: new Date(),
+  description: '',
+  favourite: false,
+  imageUrl: '',
+};

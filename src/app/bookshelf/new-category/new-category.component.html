@@ -1,21 +1,51 @@
 <div class="animated pulse">
   <div class="modal-header-wrap">
+    <p class="hTitle" *ngIf="selectedCategory && !isNew">Update Book</p>
+    <p class="hTitle" *ngIf="!selectedCategory && isNew">New Book</p>
     <div (click)="close_onClick()" class="modal-close-ico" aria-hidden="true">X</div>
   </div>
   <div class="modal-baseWrap">
     <br>
-    <form [formGroup]="categoryForm">
+    <form>
       <div class="input-group">
         <div class="input-group-wrap">
-          <mat-form-field>
-            <input matInput type="text" placeholder="Category Name" formControlName="categoryName">
-          </mat-form-field>
+          <app-text-input [(ngModel)]="shelf!.categoryName" [prefix]="false" [type]="'text'" [name]="'name'"
+            [placeholder]="'Category Name'"></app-text-input>
+          <div class="space"></div>
+          <app-text-input [(ngModel)]="shelf!.title" [prefix]="false" [type]="'text'" [name]="'title'"
+            [placeholder]="'Title'"></app-text-input>
+          <div class="space"></div> <app-text-input [(ngModel)]="shelf!.author" [prefix]="false" [type]="'text'"
+            [name]="'author'" [placeholder]="'Author'"></app-text-input>
+          <div class="space"></div> <app-text-input [(ngModel)]="shelf!.description" [prefix]="false" [type]="'text'"
+            [name]="'description'" [placeholder]="'Description'"></app-text-input>
+          <div class="space"></div>
+          <div class="space"></div>
+          <div class="wrap">
+            <p *ngIf="selectedCategory == undefined || selectedCategory?.imageUrl == '' || isNew">Upload</p>
+            <span *ngIf="selectedCategory?.imageUrl !== '' && selectedCategory !== undefined ">Selected Book has a file,
+              would you like to replace?</span>
+            <div class="txt-wrap">
+              <div style="width:100%">
+                <input type="file" autocomplete="off" (change)="onChanged($event)" name="fileUpload" accept=".pdf">
+              </div>
+            </div>
+
+          </div>
+          <div class="space"></div>
+          <mat-slide-toggle name="favourite" [(ngModel)]="shelf!.favourite">
+            Favourite
+          </mat-slide-toggle>
+
+          <!-- <mat-form-field>
+            <input matInput type="text" placeholder="Category Name" name="category" [(ngModel)]="shelf!.categoryName">
+          </mat-form-field> -->
         </div>
       </div>
     </form>
 
     <div class="btn-wrap">
-      <div  (click)="selectedCategory && !isNew ? onUpdateCategory() : onSaveCategory()" class="blue-btn">Submit</div>
+      <!-- <div (click)="onSaveCategory()" class="blue-btn">Submit</div> -->
+      <div (click)="selectedCategory && !isNew ? onUpdateCategory() : onSaveCategory()" class="blue-btn">Submit</div>
     </div>
   </div>
 </div>

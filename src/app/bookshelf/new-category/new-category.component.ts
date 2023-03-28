@@ -2,10 +2,17 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ShelfService } from 'src/app/services/shelf.service';
-import { IShelf } from 'src/app/models/shelf';
+import { initialShelf, IShelf } from 'src/app/models/shelf';
 import swal from 'sweetalert2';
 import Swal from 'sweetalert2';
 import { IBooks } from 'src/app/models/books';
+import { UtilityService } from 'src/app/services/util.service';
+import {
+  Storage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-new-category',
@@ -13,34 +20,38 @@ import { IBooks } from 'src/app/models/books';
   styleUrls: ['./new-category.component.scss'],
 })
 export class NewCategoryComponent implements OnInit {
-  @Input() selectedCategory: any;
+  @Input() selectedCategory?: IShelf;
   @Input() isNew!: boolean;
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() updatedCategory: EventEmitter<any> = new EventEmitter<any>();
 
-  categoryForm!: FormGroup;
   category: any = <any>{};
   subscription: Subscription = new Subscription();
+  shelf?: IShelf;
 
-  static formControls = () => {
-    return {
-      categoryName: ['', [<any>Validators.required, Validators.minLength(3)]],
-      books: [[], []],
-    };
-  };
+  public file?: File;
+  fileUrl = '';
 
   constructor(
-    private _formBuilder: FormBuilder,
-    private _shelfService: ShelfService
+    private _shelfService: ShelfService,
+    private utilService: UtilityService,
+    public storage: Storage
   ) {}
 
   ngOnInit() {
-    this.categoryForm = this._formBuilder.group(
-      NewCategoryComponent.formControls()
-    );
     if (this.selectedCategory && !this.isNew) {
-      this.categoryForm.patchValue(this.selectedCategory);
+      this.shelf = this.selectedCategory;
+      // this.categoryForm.patchValue(this.selectedCategory);
+    } else {
+      this.shelf = initialShelf;
     }
+
+    console.log(this.selectedCategory);
+  }
+
+  onChanged(event: any) {
+    console.log(event.target.files);
+    this.file = event.target.files[0];
   }
 
   randomID() {
@@ -52,69 +63,93 @@ export class NewCategoryComponent implements OnInit {
     return text;
   }
 
-  onSaveCategory() {
-    const categoryModel = <IShelf><unknown>{
-      categoryName: this.categoryForm.controls['categoryName'].value,
-      books: [],
-      id: this.randomID
-    };
+  uploadFile(): void {
+    const storageRef = ref(
+      this.storage,
+      'doc/' + `${this.shelf?.title}${this.file!.name}`
+    );
+    const uploadTask = uploadBytesResumable(storageRef, this.file!);
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+      },
+      (error) => {
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+          case 'storage/unauthorized':
+            Swal.fire({
+              icon: 'warning',
+              title: "User doesn't have permission to access the object",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            break;
+          case 'storage/canceled':
+            Swal.fire({
+              icon: 'warning',
+              title: 'User canceled the upload',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            // User canceled the upload
+            break;
 
-    this.subscription = this._shelfService
-      .postCategory(categoryModel)
-      .subscribe(
-        (payload) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Category Saved Successfully',
-            showCancelButton: false,
-            timer: 1500,
-          });
-          console.log(payload);
-          this.close_onClick();
-        },
-        (error) => {
-          Swal.fire({
-            icon: 'warning',
-            title: 'Error Occur while saving',
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          this.close_onClick();
+          // ...
+
+          case 'storage/unknown':
+            Swal.fire({
+              icon: 'warning',
+              title: 'Unknown error occurred, inspect error.serverResponse',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            // Unknown error occurred, inspect error.serverResponse
+            break;
         }
-      );
+      },
+      () => {
+        // Upload completed successfully, now we can get the download URL
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          this.shelf!.imageUrl = downloadURL;
+          this.shelf!.uid = this.randomID();
+          this.isNew == true
+            ? this._shelfService.create(this.shelf!)
+            : this._shelfService.update(this.shelf!);
+          this.shelf = initialShelf;
+          this.close_onClick();
+        });
+      }
+    );
+  }
+
+  onSaveCategory(): void {
+    this.utilService.showLoading;
+    if (this.file != null) {
+      this.uploadFile();
+    } else {
+      this.shelf!.imageUrl = '';
+      this.shelf!.uid = this.randomID();
+      this._shelfService.create(this.shelf!);
+      this.shelf = initialShelf;
+      this.close_onClick();
+    }
   }
 
   public onUpdateCategory() {
-    const categoryModel = <IShelf>{
-      categoryName: this.categoryForm.controls['categoryName'].value,
-      id: this.selectedCategory.id,
-      books:this.selectedCategory.books
-    };
-
-    this.subscription = this._shelfService
-      .updateCategory(this.selectedCategory.id, categoryModel)
-      .subscribe(
-        (payload) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Update Saved Successfully',
-            showCancelButton: false,
-            timer: 1500,
-          });
-          console.log(payload);
-          this.updatedCategory.emit(payload);
-          this.close_onClick();
-        },
-        (error) => {
-          Swal.fire({
-            icon: 'warning',
-            title: 'Error Occur while updating record',
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          this.close_onClick();
-        }
-      );
+    this.utilService.showLoading;
+    if (this.file != null) {
+      this.uploadFile();
+    } else {
+      this.shelf!.imageUrl = this.selectedCategory?.imageUrl;
+      this._shelfService.update(this.shelf!);
+      this.shelf = initialShelf;
+      this.close_onClick();
+    }
   }
 
   close_onClick() {
