@@ -47,7 +47,7 @@
           <div *ngIf="categoryListShow">
             <div class="cat-wrap">
               <h6>Categories</h6>
-              <i (click)="onShowNewCategory(null, 0, true)" class="fa fa-plus-circle"></i>
+              <button (click)="onShowNewCategory(null, 0, true)" class="fa fa-plus-circle">Add</button>
             </div>
 
             <div *ngFor="let category of categories; let i = index">

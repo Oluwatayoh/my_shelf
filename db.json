@@ -29,6 +29,23 @@
         }
       ],
       "id": 2
+    },
+    {
+      "categoryName": "Comic Books",
+      "books": [
+        {
+          "bookId": "YHsD6HDw8d",
+          "bookName": "Batman",
+          "author": "Luther King",
+          "isFavourite": true
+        }
+      ],
+      "id": 3
+    },
+    {
+      "categoryName": "Set books",
+      "books": [],
+      "id": 4
     }
   ]
 }
