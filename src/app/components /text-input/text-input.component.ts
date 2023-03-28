@@ -20,6 +20,7 @@ export class TextInputComponent implements ControlValueAccessor {
   @Input() label?: string | null;
   @Input() placeholder?: string | null;
   @Input() prefix?: boolean | null;
+  @Input() isRequired?: boolean | null;
   @Input() isDisabled?: boolean = false;
 
   constructor() {

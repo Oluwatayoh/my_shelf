@@ -16,7 +16,9 @@ i {
   font-size: 30px;
   font-family: "Font Awesome 6 Free" !important;
 }
-
+.required{
+ border: 1px solid rgba(255, 0, 0, 0.682);
+}
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #00478aa4;

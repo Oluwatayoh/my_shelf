@@ -128,7 +128,15 @@ export class NewCategoryComponent implements OnInit {
   }
 
   onSaveCategory(): void {
-    this.utilService.showLoading();
+    if(this.shelf?.author === '' || this.shelf?.categoryName === '' || this.shelf?.title === ''){
+      Swal.fire({
+        icon: 'warning',
+        title: 'Please fill required fields',
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }else{
+      this.utilService.showLoading();
     if (this.file != null) {
       this.uploadFile();
     } else {
@@ -138,6 +146,8 @@ export class NewCategoryComponent implements OnInit {
       this.shelf = initialShelf;
       this.close_onClick();
     }
+    }
+    
   }
 
   public onUpdateCategory() {

@@ -9,12 +9,12 @@
     <form>
       <div class="input-group">
         <div class="input-group-wrap">
-          <app-text-input [(ngModel)]="shelf!.categoryName" [prefix]="false" [type]="'text'" [name]="'name'"
+          <app-text-input [(ngModel)]="shelf!.categoryName" [isRequired]="true" [prefix]="false" [type]="'text'" [name]="'name'"
             [placeholder]="'Category Name'"></app-text-input>
           <div class="space"></div>
-          <app-text-input [(ngModel)]="shelf!.title" [prefix]="false" [type]="'text'" [name]="'title'"
+          <app-text-input [(ngModel)]="shelf!.title" [isRequired]="true" [prefix]="false" [type]="'text'" [name]="'title'"
             [placeholder]="'Title'"></app-text-input>
-          <div class="space"></div> <app-text-input [(ngModel)]="shelf!.author" [prefix]="false" [type]="'text'"
+          <div class="space"></div> <app-text-input [isRequired]="true" [(ngModel)]="shelf!.author" [prefix]="false" [type]="'text'"
             [name]="'author'" [placeholder]="'Author'"></app-text-input>
           <div class="space"></div> <app-text-input [(ngModel)]="shelf!.description" [prefix]="false" [type]="'text'"
             [name]="'description'" [placeholder]="'Description'"></app-text-input>
